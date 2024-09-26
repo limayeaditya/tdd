@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python3: pytest",
+            "type": "python3",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "-m", "pytest",
+                "--disable-warnings"
+            ]
+            
+        }
+    ]
+}
