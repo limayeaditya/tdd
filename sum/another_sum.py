@@ -1,5 +1,12 @@
 import re
 
+class NegativeNumberError(ValueError):
+    """Custom exception for handling negative number scenarios."""
+    def __init__(self, negative_array) -> None:
+        self.negative_array = negative_array
+        super().__init__(f"negative numbers not allowed {self.negative_array}")
+
+
 class Parser:
     """Class responsible for parsing and validating numbers from an input string."""
 
@@ -43,7 +50,7 @@ class Parser:
 
         # If there are negative numbers, raise a ValueError exception
         if(len(negative_array)>0):
-            raise ValueError(f"negative numbers not allowed {[x for x in negative_array]}")
+            raise NegativeNumberError(negative_array)
         
         return valid_array 
 
