@@ -6,17 +6,12 @@ class Parser:
     def __init__(self, number_string="") -> None:
         self.number_string = number_string
 
-    def parse_array(self):
-        """
-        Parse the input string and return a list of valid non-negative integers.
-
-        Raises:
-            ValueError: If any negative numbers are found in the input string.
-        """
-        
+    def split_string(self):
         # Split the input string using commas, semicolons, or newlines as delimiters
         number_array = re.split(r"[,;\n]",self.number_string)
-
+        return number_array
+    
+    def preprocess(self, number_array):
         valid_array = []  # List to hold valid non-negative integers
         negative_array = []  # List to hold any negative integers
 
@@ -31,6 +26,20 @@ class Parser:
             except ValueError:
                 # Ignore non-integer values
                 continue
+        return valid_array,negative_array
+
+
+    def parse_array(self):
+        """
+        Parse the input string and return a list of valid non-negative integers.
+
+        Raises:
+            ValueError: If any negative numbers are found in the input string.
+        """
+        
+        number_array = self.split_string()
+        valid_array, negative_array = self.preprocess(number_array)
+        
 
         # If there are negative numbers, raise a ValueError exception
         if(len(negative_array)>0):
