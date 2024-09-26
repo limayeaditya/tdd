@@ -32,6 +32,19 @@ def test_another_sum_delimiter_variation3():
    sum_ = another_sum.Sum("//;\n1;2")
    assert sum_.another_sum() == 3
 
+def test_another_sum_negative_numbers():
+   sum_ = another_sum.Sum("-1,-2")
+   with raises(ValueError) as value_error:
+      sum_.another_sum()
+   assert str(value_error.value) == "negative numbers not allowed [-1, -2]"
       
+def test_another_sum_negative_numbers2():
+   sum_ = another_sum.Sum("-1,-2,5")
+   with raises(ValueError) as value_error:
+      sum_.another_sum()
+   assert str(value_error.value) == "negative numbers not allowed [-1, -2]"
+
+
+
    
 

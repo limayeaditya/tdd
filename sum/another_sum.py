@@ -15,9 +15,19 @@ class Sum:
     def filter_array(self):
         number_array = re.split(r"[,;\n]",self.a)
         valid_array = []
+        negative_array = []
         for number in number_array:
-            if number.isnumeric():
-                valid_array.append(int(number))
+            try:
+                int_num = int(number)
+                if(int_num>=0):
+                    valid_array.append(int(number))
+                else:
+                    negative_array.append(int(number))
+
+            except ValueError as E:
+                continue
+        if(len(negative_array)>0):
+            raise ValueError(f"negative numbers not allowed {[x for x in negative_array]}")
         return valid_array
 
 
