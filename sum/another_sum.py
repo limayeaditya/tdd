@@ -1,19 +1,11 @@
 import re
 
+class Parser:
+    def __init__(self, number_string="") -> None:
+        self.number_string = number_string
 
-class Sum:
-    def __init__(self, a="") -> None:
-        self.a = a
-
-    def another_sum(self):
-        valid_array = self.filter_array()
-        if(len(valid_array)>0):
-            total = sum(valid_array)
-            return int(total)
-        return 0
-    
-    def filter_array(self):
-        number_array = re.split(r"[,;\n]",self.a)
+    def parse_array(self):
+        number_array = re.split(r"[,;\n]",self.number_string)
         valid_array = []
         negative_array = []
         for number in number_array:
@@ -29,6 +21,20 @@ class Sum:
         if(len(negative_array)>0):
             raise ValueError(f"negative numbers not allowed {[x for x in negative_array]}")
         return valid_array
+
+class Sum:
+    def __init__(self, number_string="") -> None:
+        self.parser = Parser(number_string) 
+
+    def another_sum(self):
+        valid_array = self.parser.parse_array()
+        if(len(valid_array)>0):
+            total = sum(valid_array)
+            return int(total)
+        return 0
+    
+    
+
 
 
 
