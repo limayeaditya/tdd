@@ -5,16 +5,18 @@ function App() {
   const [numberString, setNumberString] = useState("");
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+  const apiUrl = process.env.REACT_APP_BACKEND_URL;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError(null);  // Clear previous errors
     setResult(null);  // Clear previous result
+    console.log('Backend URL:', apiUrl);
+
 
     const normalizedInput = numberString.replace(/\\n/g, '\n'); // Replace escaped newline with actual newline
-
     try {
-      const response = await fetch('http://localhost:8000/calculate_sum', {
+      const response = await fetch(`${apiUrl}/calculate_sum`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
