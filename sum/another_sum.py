@@ -1,37 +1,62 @@
 import re
 
 class Parser:
+    """Class responsible for parsing and validating numbers from an input string."""
+
     def __init__(self, number_string="") -> None:
         self.number_string = number_string
 
     def parse_array(self):
+        """
+        Parse the input string and return a list of valid non-negative integers.
+
+        Raises:
+            ValueError: If any negative numbers are found in the input string.
+        """
+        
+        # Split the input string using commas, semicolons, or newlines as delimiters
         number_array = re.split(r"[,;\n]",self.number_string)
-        valid_array = []
-        negative_array = []
+
+        valid_array = []  # List to hold valid non-negative integers
+        negative_array = []  # List to hold any negative integers
+
         for number in number_array:
             try:
-                int_num = int(number)
+                int_num = int(number) # Try to convert the split string to an integer
                 if(int_num>=0):
-                    valid_array.append(int(number))
+                    valid_array.append(int(number)) 
                 else:
-                    negative_array.append(int(number))
+                    negative_array.append(int(number)) 
 
-            except ValueError as E:
+            except ValueError:
+                # Ignore non-integer values
                 continue
+
+        # If there are negative numbers, raise a ValueError exception
         if(len(negative_array)>0):
             raise ValueError(f"negative numbers not allowed {[x for x in negative_array]}")
-        return valid_array
+        
+        return valid_array 
 
 class Sum:
+    """Class responsible for calculating the sum of valid numbers."""
+
     def __init__(self, number_string="") -> None:
-        self.parser = Parser(number_string) 
+        self.parser = Parser(number_string)  # Initialize the parser with the input string
 
     def another_sum(self):
-        valid_array = self.parser.parse_array()
-        if(len(valid_array)>0):
-            total = sum(valid_array)
-            return int(total)
-        return 0
+        """
+        Calculate the sum of valid numbers parsed from the input string.
+
+        Returns:
+            int: The total sum of valid non-negative integers.
+        """
+        
+        valid_array = self.parser.parse_array() # Parse the numbers using the NumberParser
+
+        return sum(valid_array) # Return the sum of valid numbers
+
+    
     
     
 
