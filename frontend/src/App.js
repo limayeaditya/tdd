@@ -11,13 +11,15 @@ function App() {
     setError(null);  // Clear previous errors
     setResult(null);  // Clear previous result
 
+    const normalizedInput = numberString.replace(/\\n/g, '\n'); // Replace escaped newline with actual newline
+
     try {
       const response = await fetch('http://localhost:8000/calculate_sum', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ number_string: numberString }), // Send input string as JSON
+        body: JSON.stringify({ number_string: normalizedInput }), // Send input string as JSON
       });
 
       if (!response.ok) {
@@ -43,6 +45,7 @@ function App() {
           value={numberString}
           onChange={(e) => setNumberString(e.target.value)}
           fullWidth
+          
         />
         <Button variant="contained" color="primary" type="submit">Calculate Sum</Button>
       </form>
