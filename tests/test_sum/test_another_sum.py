@@ -52,3 +52,21 @@ def test_another_sum_negative_numbers2():
    with raises(ValueError) as value_error:  
       sum_.another_sum()
    assert str(value_error.value) == "negative numbers not allowed [-1, -2]"  
+
+def test_another_sum_delimiter_variation4():
+   sum_ = another_sum.Sum("1,2,")  
+   with raises(ValueError) as value_error:  
+      sum_.another_sum()
+   assert str(value_error.value) == "separators not allowed at the end"  
+
+def test_another_sum_delimiter_variation5():
+   sum_ = another_sum.Sum("//|\n1|2|3")  
+   assert sum_.another_sum() == 6  
+
+def test_another_sum_greater_than_1000():
+   sum_ = another_sum.Sum("1001,2")  
+   assert sum_.another_sum() == 3 
+
+
+
+

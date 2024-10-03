@@ -2,7 +2,6 @@ class ValidationError(ValueError):
     def __init__(self, error_message_array) -> None:
         self.error_message_array = error_message_array
         if len(self.error_message_array)>1:
-            # breakpoint()
             super().__init__("\n".join(self.error_message_array))
         else:
             super().__init__(self.error_message_array[0])
@@ -56,18 +55,11 @@ class Validator:
             if not char.isalnum():
                 return True
         return False
-    
-    def atleast_one_special_char(self):
-        for char in self.password_string:
-            if not char.isalnum():
-                return True
-        return False
         
 
 class PasswordValidator:
     def __init__(self, password_string) -> None:
         self.password_string = password_string
-        self.error_message = []
     def validate(self):
         validate= Validator(self.password_string)
         return validate.validate()
